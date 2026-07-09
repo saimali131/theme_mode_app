@@ -1,62 +1,27 @@
-// import 'package:flutter/material.dart';
-// import 'screens/new_screen.dart';
-
-// void main() {
-//   runApp(const MyApp());
-// }
-
-// class MyApp extends StatefulWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   State<MyApp> createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   ThemeMode mode = ThemeMode.light;
-
-//   void toggleTheme() {
-//     setState(() {
-//
-//       mode = mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       themeMode: mode,
-//       theme: ThemeData(
-//         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-//         brightness: Brightness.light,
-//       ),
-//       darkTheme: ThemeData(brightness: Brightness.dark),
-
-//       home: ProfileChangeScreen(mode: mode, x: toggleTheme),
-//     );
-//   }
-// }
-
 import 'package:flutter/material.dart';
-import 'package:theme_mode_app/screens/thmeme-mode.dart';
+import 'package:theme_mode_app/screens/new_screen.dart';
 
 void main() {
-  runApp(MyWidget());
+  runApp(const MyApp());
 }
 
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  State<MyWidget> createState() => _MyWidgetState();
+  State<MyApp> createState() => _MyAppState();
 }
 
-class _MyWidgetState extends State<MyWidget> {
-  ThemeMode mode = ThemeMode.light;
-  void toggle() {
+class _MyAppState extends State<MyApp> {
+  // This is Flutter's built-in ThemeMode enum (light/dark/system) — safe to
+  // use now that our own class isn't also called ThemeMode.
+  ThemeMode _themeMode = ThemeMode.light;
+
+  void _toggleTheme() {
     setState(() {
-      mode = mode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      _themeMode = _themeMode == ThemeMode.light
+          ? ThemeMode.dark
+          : ThemeMode.light;
     });
   }
 
@@ -64,11 +29,10 @@ class _MyWidgetState extends State<MyWidget> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-
-      themeMode: mode,
-      theme: ThemeData(brightness: Brightness.light),
-      darkTheme: ThemeData(brightness: Brightness.dark),
-      home: ProfileScreen(mode: mode, x: toggle),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: _themeMode,
+      home: ProfileChangeScreen(mode: _themeMode, x: _toggleTheme),
     );
   }
 }
